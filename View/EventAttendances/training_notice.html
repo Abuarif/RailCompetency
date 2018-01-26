@@ -1,0 +1,158 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title></title>
+</head>
+
+<body>
+
+
+<table style="none;text-align:left;width:100%;padding-top:15px;"
+cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="height:25px;">
+        <div style="text-align:justify;">
+        Salam HoRMAT, </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table style="none;text-align:left;width:100%;padding-top:45px;"
+cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="height:25px;">
+        <div style="text-align:justify;">
+        Sila rujuk senarai nama staf yang perlu menghadiri kursus seperti
+        maklumat berikut: </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table style="none;text-align:left;width:100%;padding-top:20px;"
+cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="height:25px;width:100px;">Kursus </td>
+      <td style="height:25px;width:50px;text-align:center;">: </td>
+      <td style="height:25px;width:400px;padding-left:30px;font-weight:bold;"><?php echo $event['Course']['code'].' - '.$event['Course']['name'].' '.$event['Event']['details']; ?>
+      </td>
+    </tr>
+    <tr>
+      <td style="height:25px;width:100px;">Tarikh </td>
+      <td style="height:25px;width:50px;text-align:center;">: </td>
+      <td style="height:25px;width:400px;padding-left:30px;font-weight:bold;"><?php echo $this->Time->format($event['Event']['start_date'], '%d').' - '.$this->Time->format($event['Event']['end_date'], '%d %B %Y'); ?>
+      </td>
+    </tr>
+    <tr>
+      <td style="height:25px;width:100px;">Masa </td>
+      <td style="height:25px;width:50px;text-align:center;">: </td>
+      <td style="height:25px;width:400px;padding-left:30px;font-weight:bold;"><?php echo $this->Time->format($event['Event']['start_date'], '%H:%M %p').' - '.$this->Time->format($event['Event']['end_date'], '%H:%M %p'); ?>
+      </td>
+    </tr>
+    <tr>
+      <td style="height:25px;width:100px;">Lokasi </td>
+      <td style="height:25px;width:50px;text-align:center;">: </td>
+      <td style="height:25px;width:400px;padding-left:30px;font-weight:bold;"><?php echo $event['Venue']['location']; ?>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<?php if (!empty($event['EventAttendance']['notes'])) { ?>
+<table style="none;text-align:left;width:100%;padding-top:25px;"
+cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="height:25px;">
+        <div style="text-align:justify;">
+        <?php echo $event['EventAttendance']['notes']; ?> </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<?php } ?>
+<table style="none;text-align:left;width:100%;padding-top:20px;">
+              <thead>
+                <tr>
+                  <th> Department</th>  
+                  <th> Staff Number</th>  
+                  <th> Staff Name</th>  
+                  <th> Confirmed?</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <?php 
+                    $participant = 0;
+                    if (!empty($attendees)) 
+                      foreach ($attendees as $eventAttendance): 
+                  ?>
+                  <tr>
+                    <td class="actions">
+                      <?php 
+                      //echo $this->Form->postLink($this->Form->button('<i class="fa fa-trash-o"></i>', array('class'=>'btn btn-xs btn-danger', 'style'=>'color:#000; width:25px; height:25px;','data-toggle'=>'tooltip', 'data-placement'=>'right', 'title'=>'Remove')), array('controller' => 'event_attendances', 'action' => 'delete', $eventAttendance['EventAttendance']['id']), array('escape' => false, 'confirm' => __('Are you sure you want to delete # %s?', $eventAttendance['EventAttendance']['id']))); ?>
+                    
+                    <td>
+                      <?php echo $eventAttendance['Staff']['parent_code'] .'-'. $eventAttendance['Staff']['org_code']; ?>
+                    </td>
+                    <td>
+                      <?php echo $eventAttendance['Staff']['staff_no']; ?>
+                    </td>
+                    <td>
+                      <?php echo $this->Html->link($eventAttendance['Staff']['name'], array('controller' => 'staffs', 'action' => 'view', $eventAttendance['Staff']['id'])); ?>
+                    </td>
+                          <?php if ($eventAttendance['EventAttendance']['active'] == 1) { ?>
+                            <td><i class='fa fa-check bg-success btn btn-default' style='color:#fff; width:25px; height:25px;padding:5px'></i> &nbsp;</td>
+                          <?php } else { ?>
+                            <td><i class='fa fa-times bg-danger btn btn-default' style='color:#fff; width:25px; height:25px;padding:5px'></i> &nbsp;</td>
+                          <?php } ?>
+                  </tr>
+                  <?php 
+                    $participant++;
+                    endforeach; 
+                  ?>
+              </tbody>
+            </table>
+<table style="none;text-align:left;width:100%;padding-top:15px;"
+cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="height:40px;">
+        <div style="text-align:justify;line-height:25px;">
+        Mohon salurkan maklumat tersebut kepada pihak yang terbabit. </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="height:70px;">
+        <div style="text-align:justify;line-height:25px;">
+        ETIKA PAKAIAN: Berpakaian Kemas <br>
+        - Jeans dan sandal/selipar TIDAK DIBENARKAN </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="height:40px;">
+        <div style="text-align:justify;">
+        Kerjasama semua amat kami hargai. </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="height:40px;">
+        <div style="text-align:justify;">
+        Terima kasih. </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table style="none;text-align:left;width:100%;padding-top:40px;"
+cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="height:20px;font-weight:bold;">-- Ini adalah mesej dijana secara automatik --</td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

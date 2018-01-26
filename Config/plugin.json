@@ -1,0 +1,15 @@
+{
+	"name": "Rail Academy - Competency Management System",
+	"description": "Plugin to manage the Rapid Rail Sdn Bhd - Competency Management System",
+
+	"author": "Suhaimi Maidin",
+	"authorEmail": "suhaimi.maidin@prasarana.com.my",
+	"authorUrl": "http://www.myrapid.com.my",
+
+	"dependencies": {
+		"plugins": [
+			"acl",
+			"extensions"
+		]
+	}
+}

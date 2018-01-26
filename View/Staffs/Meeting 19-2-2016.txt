@@ -1,0 +1,11 @@
+Dashboard
+----------
+
+1. KPI for Trainers
+	- Average training hours (todate)
+2. KPI for Staff
+	- average training hours (todate)
+3. KPI for department
+	- planned vs actual training (todate)
+
+	

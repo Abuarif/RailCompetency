@@ -34,7 +34,7 @@
   } 
   echo 'is_weekend: '.$weekend;
   $max = $this->requestAction('/rail_competency/events/getWorkingDays/'.$this->Time->format($event['Event']['start_date'], '%Y-%m-%d').'/'.$this->Time->format($event['Event']['end_date'], '%Y-%m-%d').'/'.$weekend);
-  // echo 'max: '.$max;
+  echo 'max: '.$max;
   $count = 1;
   if (!empty($event['EventAttendance']))
     if ($event['EventAttendance'][0]['is_enrolled']) {

@@ -424,8 +424,12 @@ class EventsController extends RailCompetencyAppController {
 		$holiday = $this->count_holiday($start_date, $end_date);
 
 		$this->log('holiday: '.$holiday);
-
-		$max = $this->getWorkingDays($start_date, $end_date);
+		$weekend = 0;
+		if ($myEvent['Event']['is_weekend']) {
+			$weekend = 1;
+			$this->log('weekend: '.$weekend);
+		} 
+		$max = $this->getWorkingDays($start_date, $end_date, $weekend);
 		$this->log('max: '.$max);
 		$this->set('max', ($max - $holiday));
 		// $this->set('max', ($max));
@@ -1631,7 +1635,7 @@ class EventsController extends RailCompetencyAppController {
 			if (isset($this->request->data['Event']['start_date'])) {
 				$this->request->data['Event']['start_date'] = $this->split_date2($this->request->data['Event']['start_date']);
 				$this->request->data['Event']['end_date'] = $this->split_date2($this->request->data['Event']['end_date']);
-				$this->request->data['Event']['last_enrollment'] = $this->split_date2($this->request->data['Event']['last_enrollment']);
+				// $this->request->data['Event']['last_enrollment'] = $this->split_date2($this->request->data['Event']['last_enrollment']);
 			}
 			
 			if ($this->Event->save($this->request->data)) {
@@ -3511,25 +3515,29 @@ class EventsController extends RailCompetencyAppController {
 		$this->log('begin: '. $begin);
 		$this->log('end: '. $end);
 		$this->log('weekend: '. $is_weekend);
+
 	    if ($begin > $end) {
 	        echo "startdate is in the future! <br />";
 
 	        return 0;
 	    } else {
+			$this->log('Start counting');
 	        $no_days  = 0;
 	        $weekends = 0;
 	        while ($begin <= $end) {
 				$no_days++; // no of days in the given interval
-				// if ($is_weekend) {
+				if (!$is_weekend) {
 					$what_day = date("N", $begin);
 					if ($what_day > 5) { // 6 and 7 are weekend days
 						$weekends++;
 					};
-					$begin += 86400; // +1 day
-				// }
-	        }
+				}
+				$begin += 86400; // +1 day
+			}
 	        $working_days = $no_days - $weekends;
-
+			$this->log('no_days: '. $no_days);
+			$this->log('weekend: '. $weekends);
+			$this->log('working_days: '. $working_days);
 	        return $working_days;
 	    }
 	}

@@ -20,11 +20,13 @@
     // echo '<br>';
     echo $this->Form->input('details', array('class' => 'form-control', 'placeholder' => 'Please add more detail here...', 'style' => 'resize:none;'));
     echo '<br>';
+    echo $this->Form->input('is_weekend', array('class' => 'col-lg-2 control-label form-control'));
+    echo '<br>';
     echo $this->Form->input('start_date', array('class' => 'EventStartDate datepicker-input form-control', 'data-date-format' => 'dd-mm-yyyy hh:ii', 'type' => 'text', 'style' => 'z-index: 100000!important;'));
     echo '<br>';
     echo $this->Form->input('end_date', array('class' => 'EventEndDate datepicker-input form-control', 'data-date-format' => 'dd-mm-yyyy', 'type' => 'text', 'style' => 'z-index: 100000!important;'));
     echo '<br>';
-    echo $this->Form->input('last_enrollment', array('class' => 'EventLastEnrollment datepicker-input form-control', 'data-date-format' => 'dd-mm-yyyy', 'type' => 'text', 'style' => 'z-index: 100000!important;'));
+    // echo $this->Form->input('last_enrollment', array('class' => 'EventLastEnrollment datepicker-input form-control', 'data-date-format' => 'dd-mm-yyyy', 'type' => 'text', 'style' => 'z-index: 100000!important;'));
 		// echo $this->Form->input('all_day', array('class' => 'col-lg-2 control-label form-control'));
 		// echo $this->Form->input('status', array('class' => 'col-lg-2 control-label form-control'));
 		// echo $this->Form->hidden('active', array('class' => 'col-lg-2 control-label form-control', 'value' => 1));

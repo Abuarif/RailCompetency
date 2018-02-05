@@ -29,9 +29,14 @@
   // echo 'duration: '.$max;
   // $max = abs(floor((strtotime($this->Time->format($event['Event']['start_date'], '%Y-%m-%d')) -  strtotime($this->Time->format($event['Event']['end_date'], '%Y-%m-%d')) )/(60*60*24))) + 1;
 
-  // echo 'max: '.$max;
-  $max = $this->requestAction('/rail_competency/events/getWorkingDays/'.$this->Time->format($event['Event']['start_date'], '%Y-%m-%d').'/'.$this->Time->format($event['Event']['end_date'], '%Y-%m-%d'));
-  // echo 'max: '.$max;
+  $weekend = 0;
+  if ($event['Event']['is_weekend']) {
+    $weekend = 1;
+  } 
+  echo 'is_weekend: '.$weekend;
+  $max = $this->requestAction('/rail_competency/events/getWorkingDays/'.$this->Time->format($event['Event']['start_date'], '%Y-%m-%d').'/'.$this->Time->format($event['Event']['end_date'], '%Y-%m-%d').'/'.$weekend);
+  echo 'max: '.$max;
+  
   $count = 1;
   if (!empty($event['EventAttendance']))
     if ($event['EventAttendance'][0]['is_enrolled']) {

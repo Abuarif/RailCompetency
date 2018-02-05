@@ -3504,10 +3504,13 @@ class EventsController extends RailCompetencyAppController {
 		return $end_date['day'].'-'.$end_date['month'].'-'.$end_date['year'];
 	}
 
-	public function getWorkingDays($startDate, $endDate)
+	public function getWorkingDays($startDate = null, $endDate = null, $is_weekend = null)
 	{
 	    $begin = strtotime($startDate);
-	    $end   = strtotime($endDate);
+		$end   = strtotime($endDate);
+		$this->log('begin: '. $begin);
+		$this->log('end: '. $end);
+		$this->log('weekend: '. $is_weekend);
 	    if ($begin > $end) {
 	        echo "startdate is in the future! <br />";
 
@@ -3516,13 +3519,15 @@ class EventsController extends RailCompetencyAppController {
 	        $no_days  = 0;
 	        $weekends = 0;
 	        while ($begin <= $end) {
-	            $no_days++; // no of days in the given interval
-	            $what_day = date("N", $begin);
-	            if ($what_day > 5) { // 6 and 7 are weekend days
-	                $weekends++;
-	            };
-	            $begin += 86400; // +1 day
-	        };
+				$no_days++; // no of days in the given interval
+				// if ($is_weekend) {
+					$what_day = date("N", $begin);
+					if ($what_day > 5) { // 6 and 7 are weekend days
+						$weekends++;
+					};
+					$begin += 86400; // +1 day
+				// }
+	        }
 	        $working_days = $no_days - $weekends;
 
 	        return $working_days;

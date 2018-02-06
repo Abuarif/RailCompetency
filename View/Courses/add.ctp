@@ -15,6 +15,8 @@
 			echo '<br><br>';
 			echo $this->Form->input('code', array('class' => 'form-control'));
 			echo '<br>';
+			echo $this->Form->input('old_code', array('class' => 'form-control'));
+			echo '<br>';
 			echo $this->Form->input('name', array('class' => 'form-control'));
 			echo '<br>';
 			echo $this->Form->input('pax', array('class' => 'form-control', 'type' => 'textbox', 'value' => '5'));

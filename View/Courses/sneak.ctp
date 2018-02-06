@@ -31,6 +31,13 @@
 			<br><br>
 
 
+			<i class="fa fa-caret-right"></i>&nbsp;&nbsp;<span style="font-size:14px;"><?php echo __('Old Code'); ?></span>
+			<br>
+			<span style="padding-left:12px;padding-top:5px;font-weight:bold;"><?php echo h($course['Course']['old_code']); ?></span>
+			
+			<br><br>
+
+
 
 			<i class="fa fa-caret-right"></i>&nbsp;&nbsp;<span style="font-size:14px;"><?php echo __('Course Name'); ?></span>
 			<br>

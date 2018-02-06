@@ -42,7 +42,8 @@
     <tr>
       <th class="text-center sorting" style="width:150px;"><?php echo __('Actions'); ?></th>
       <th><?php echo $this->Paginator->sort('training_provider_id'); ?></th>
-      <th class="text-center sorting"><?php echo $this->Paginator->sort('course code'); ?></th>
+      <th class="text-center sorting"><?php echo $this->Paginator->sort('new code'); ?></th>
+      <th class="text-center sorting"><?php echo $this->Paginator->sort('old code'); ?></th>
       <th><?php echo $this->Paginator->sort('course name'); ?></th>
     </tr>
   </thead>
@@ -59,6 +60,7 @@
         <?php echo $this->Html->link($course['TrainingProvider']['name'], array('controller' => 'training_providers', 'action' => 'view', $course['TrainingProvider']['id'])); ?>
       </td>
       <td class="text-center sorting"><?php echo h($course['Course']['code']); ?>&nbsp;</td>
+      <td class="text-center sorting"><?php echo h($course['Course']['old_code']); ?>&nbsp;</td>
       <td><?php echo h($course['Course']['name']); ?>&nbsp;</td>
     </tr>
     <?php endforeach; ?>

@@ -34,6 +34,7 @@ class Course extends RailCompetencyAppModel {
 			'field' => array(
 				'name',
 				'TrainingProvider.name',
+				'old_code',
 				'code',
 			),
 		),

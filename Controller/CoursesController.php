@@ -59,6 +59,32 @@ class CoursesController extends RailCompetencyAppController
 		// $this->set('courses', $this->Paginator->paginate());
 	}
 
+	public function index_new_code()
+	{
+
+		$this->Course->recursive = 0;
+		$this->Paginator->settings['conditions'] =
+			array(
+			'Course.old_code is not null',
+
+		);
+		$this->Paginator->settings['limit'] = Configure::read('RCMS.read_limit');
+		$this->set('courses', $this->Paginator->paginate());
+
+	}
+
+	public function index_blank_code()
+	{
+
+		$this->Course->recursive = 0;
+		$this->Paginator->settings['conditions'] = array('Course.old_code is null');
+
+
+		$this->Paginator->settings['limit'] = Configure::read('RCMS.read_limit');
+		$this->set('courses', $this->Paginator->paginate());
+
+	}
+
 	public function test()
 	{
 
@@ -158,7 +184,7 @@ class CoursesController extends RailCompetencyAppController
 						$current_code = trim($myCSV[1]);
 						$new_code = trim($myCSV[2]);
 						$new_name = trim($myCSV[3]);
-						$this->log('current_code: '. $current_code);
+						$this->log('current_code: ' . $current_code);
 						// get current course code
 						$options['conditions'] = array(
 							'Course.code' => $current_code,
@@ -167,7 +193,7 @@ class CoursesController extends RailCompetencyAppController
 						$myCourse = $this->Course->find('first', $options);
 						// var_dump($myCourse);
 						if ($myCSV[0] != 0 && !empty($myCourse)) {
-							$this->log('Course Id: '.$myCourse['Course']['id']);
+							$this->log('Course Id: ' . $myCourse['Course']['id']);
 						// prep to swap new course code with current course code
 							$data['Course']['id'] = $myCourse['Course']['id'];
 							$data['Course']['code'] = $new_code;

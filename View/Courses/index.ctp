@@ -17,6 +17,7 @@
     </div>
     <?php echo $this->Html->link('<i class="fa fa-plus"></i>&nbsp;&nbsp;Create', array('action' => 'add'), array('class' => 'btn btn-success btn-sm', 'data-toggle'=>'ajaxModal', 'escape' => false)); ?>
     <?php echo $this->Html->link('<i class="fa fa-upload"></i>&nbsp;&nbsp;Upload', array('action' => 'import'), array('class' => 'btn btn-success btn-sm', 'data-toggle'=>'ajaxModal', 'escape' => false)); ?>
+    <?php echo $this->Html->link('<i class="fa fa-upload"></i>&nbsp;&nbsp;Upload New Course Code', array('action' => 'import_new_code'), array('class' => 'btn btn-success btn-sm', 'data-toggle'=>'ajaxModal', 'escape' => false)); ?>
   </div>
   <div class="col-sm-4 m-b-xs">
     &nbsp;

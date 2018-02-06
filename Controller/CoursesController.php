@@ -135,6 +135,49 @@ class CoursesController extends RailCompetencyAppController {
 		}
 	}
 
+	public function import_new_code()
+	{
+		$this->Course->recursive = 0;
+		if ($this->request->is('post')) {
+			$report = '';
+			if (!empty($this->request->data['Course']['files']['tmp_name'])) {
+				$file = $this->request->data['Course']['files']['tmp_name'];
+				$handle = fopen($file, "r");
+
+				$this->log('File: ' . $file);
+			    //loop through the csv file and insert into database 
+				do {
+					if (!empty($myCSV)) {
+						$this->log('In loop');
+						$current_code = trim($myCSV[1]);
+						$new_code = trim($myCSV[2]);
+						$new_name = trim($myCSV[3]);
+						// get current course code
+						$myCourse = $this->Course->findByCode($current_code);
+						if ($myCSV[0] != 0 && !empty($myCourse)) {
+						// prep to swap new course code with current course code
+							$data['Course']['id'] = $myCourse['Course']['id'];
+							$data['Course']['code'] = $new_code;
+							$data['Course']['old_code'] = $current_code;
+							$data['Course']['name'] = $new_name;
+							$data['Course']['old_name'] = $myCourse['Course']['name'];
+
+							if ($this->Course->save($data)) {
+								$status = true;
+							}
+						} else {
+							if (!empty($current_code)) {
+								$report .= $current_code;
+								$report .= ',';
+							}
+						}
+					}
+				} while ($myCSV = fgetcsv($handle, 1000, ",", "'"));
+			}
+			return $this->redirect(array('action' => 'upload_report', 'log' => $report));
+		}
+	}
+	
 	public function manage($training_provider_id = null) {
 
 		$this->set(compact('training_provider_id'));

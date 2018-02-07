@@ -30,6 +30,8 @@
 			echo '<br>';
 			echo $this->Form->input('NRIC', array('class' => 'form-control'));
 			echo '<br>';
+			echo $this->Form->input('race', array('class' => 'form-control'));
+			echo '<br>';
 			// echo $this->Form->input('details', array('class' => 'form-control', 'style' => 'resize:none;'));
 			// echo '<br>';
 			// echo $this->Form->input('lft', array('class' => 'form-control', 'type' => 'text'));

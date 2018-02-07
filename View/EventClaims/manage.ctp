@@ -277,6 +277,7 @@ if (!empty($event['Event'])) {
               </div>
               <?php echo $this->Html->link(' Trainee List (.csv)', array('action' => 'export',  $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
               <?php echo $this->Html->link(' Trainee List (.xls)', array('action' => 'export_xls',  $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
+              <?php echo $this->Html->link(' Trainee List 2 (.xls)', array('action' => 'export_xls_2',  $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
             </div>
             <div class="col-sm-4 m-b-xs"></div>
           </div>

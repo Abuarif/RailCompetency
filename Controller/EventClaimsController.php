@@ -20,7 +20,7 @@ class EventClaimsController extends RailCompetencyAppController
 	 *
 	 * @var array
 	 */
-	public $components = array('Paginator', 'Search.Prg');
+	public $components = array('Paginator', 'Search.Prg', 'Example');
 	public $helpers = array('Csv', 'Xls');
 
 	/**
@@ -560,7 +560,7 @@ class EventClaimsController extends RailCompetencyAppController
 
 				$myQualification = $qualification->myself($eventAttendance['EventAttendance']['staff_id']);
 				if (!empty($myQualification)) {
-					$traineedata['HRDF']['qualification'] = $myQualification['StaffQualification']['certificate_name'];
+					$trainee['HRDF']['qualification'] = $myQualification['StaffQualification']['certificate_name'];
 				} else {
 					$trainee['HRDF']['qualification'] = 'Diploma';
 				}
@@ -580,6 +580,70 @@ class EventClaimsController extends RailCompetencyAppController
 		$this->set(compact('data', 'course_code'));
 		$this->layout = null;
 		$this->autoLayout = false;
+
+	}
+
+	public function export_xls_2($event_id = null, $course_code = null)
+	{
+		$data = array();
+		$options['conditions'] = array('Event.id' => $event_id);
+		$event = $this->EventClaim->Event->find('first', $options);
+		$filename='HRDF-trainees-'.$course_code.".xls";
+		// find attendees who have completed the course only.
+		$attendance = new EventAttendancesController;
+		$options['conditions'] = array('EventAttendance.event_id' => $event_id, 'EventAttendance.is_completed' => 'true');
+		$myAttendances = $attendance->EventAttendance->find('all', $options);
+
+		$header[] = 'IC No.';
+		$header[] = 'Name';
+		$header[] = 'Gender';
+		$header[] = 'Race';
+		$header[] = 'Academic Qualification';
+		$header[] = 'Trainee Designation';
+		$header[] = 'HQ/Branch';
+		$header[] = 'Distance to Training';
+		$header[] = 'Specify (if Other Race)';
+
+		foreach ($myAttendances as $eventAttendance) {
+			$staff = new StaffsController;
+			$qualification = new StaffQualificationsController;
+			$position = new PositionsController;
+
+			$participant = $staff->object($eventAttendance['EventAttendance']['staff_id']);
+			$trainee = array();
+
+			if (!empty($participant)) {
+				$trainee[] = $participant['Staff']['NRIC'];
+				$trainee[] = $participant['Staff']['name'];
+				if ($participant['Staff']['NRIC']%2 == 0) {
+					$trainee[] = 'Female';
+				} else {
+					$trainee[] = 'Male';					
+				}
+				$trainee[] = $participant['Staff']['race'];
+
+				$myQualification = $qualification->myself($eventAttendance['EventAttendance']['staff_id']);
+				if (!empty($myQualification)) {
+					$trainee[] = $myQualification['StaffQualification']['certificate_name'];
+				} else {
+					$trainee[] = 'Diploma';
+				}
+
+				$myPosition = $position->object($participant['Staff']['position_id']);
+				if (!empty($myPosition)) {
+					$trainee[] = $myPosition['Position']['name'];
+				} else {
+					$trainee[] = 'Technician';
+				}
+				$trainee[] = 'RAPID RAIL SDN. BHD.';
+				$trainee[] = 'Less 70 km';
+				$trainee[] = ' ';
+				$data[] = $trainee;
+			}
+		}
+		$this->layout = false;
+		$this->autoLayout = false;
+		$this->Example->export($filename, $header, $data);
 
 	}
 }

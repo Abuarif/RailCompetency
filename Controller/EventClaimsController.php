@@ -487,9 +487,9 @@ class EventClaimsController extends RailCompetencyAppController
 			$participant = $staff->object($eventAttendance['EventAttendance']['staff_id']);
 			
 			if (!empty($participant)) {
-				$trainee['HRDF']['NRIC'] = $participant['Staff']['NRIC'];
+				$trainee['HRDF']['NRIC'] = str_replace('-', '', $participant['Staff']['NRIC']);
 				$trainee['HRDF']['name'] = $participant['Staff']['name'];
-				if ($participant['Staff']['NRIC']%2 == 0) {
+				if (str_replace('-', '', $participant['Staff']['NRIC'])%2 == 0) {
 					$trainee['HRDF']['gender'] = 'Female';
 				} else {
 					$trainee['HRDF']['gender'] = 'Male';					
@@ -552,9 +552,9 @@ class EventClaimsController extends RailCompetencyAppController
 			$participant = $staff->object($eventAttendance['EventAttendance']['staff_id']);
 			
 			if (!empty($participant)) {
-				$trainee['HRDF']['NRIC'] = $participant['Staff']['NRIC'];
+				$trainee['HRDF']['NRIC'] = str_replace('-', '', $participant['Staff']['NRIC']);
 				$trainee['HRDF']['name'] = $participant['Staff']['name'];
-				if ($participant['Staff']['NRIC']%2 == 0) {
+				if (str_replace('-', '', $participant['Staff']['NRIC'])%2 == 0) {
 					$trainee['HRDF']['gender'] = 'Female';
 				} else {
 					$trainee['HRDF']['gender'] = 'Male';					

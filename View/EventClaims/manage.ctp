@@ -314,7 +314,7 @@ if (!empty($event['Event'])) {
                       <?php echo $participant['Staff']['staff_no']; ?>
                     </td>
                     <td>
-                      <?php echo $participant['Staff']['NRIC']; ?>
+                      <?php echo str_replace('-', '', $participant['Staff']['NRIC']); ?>
                     </td>
                     <td>
                       <?php echo $participant['Staff']['name']; ?>
@@ -324,7 +324,7 @@ if (!empty($event['Event'])) {
                       <?php echo (!empty($myQualification) ? $myQualification['StaffQualification']['certificate_name'] : ''); ?>
                     </td>
                     <td>
-                      <?php echo ($participant['Staff']['NRIC'] % 2 == 0 ? 'Female' : 'Male'); ?>
+                      <?php echo (str_replace('-', '', $participant['Staff']['NRIC']) % 2 == 0 ? 'Female' : 'Male'); ?>
                     </td>
                     <td>
                       <?php echo $participant['Staff']['race']; ?>
@@ -408,7 +408,7 @@ if (!empty($event['Event'])) {
                       <?php echo $participant['Staff']['staff_no']; ?>
                     </td>
                     <td>
-                      <?php echo $participant['Staff']['NRIC']; ?>
+                      <?php echo str_replace('-', '', $participant['Staff']['NRIC']); ?>
                     </td>
                     <td>
                       <?php echo $participant['Staff']['name']; ?>
@@ -418,7 +418,7 @@ if (!empty($event['Event'])) {
                       <?php echo (!empty($myQualification) ? $myQualification['StaffQualification']['certificate_name'] : ''); ?>
                     </td>
                     <td>
-                      <?php echo ($participant['Staff']['NRIC'] % 2 == 0 ? 'Female' : 'Male'); ?>
+                      <?php echo (str_replace('-', '', $participant['Staff']['NRIC']) % 2 == 0 ? 'Female' : 'Male'); ?>
                     </td>
                     <td>
                       <?php echo $participant['Staff']['race']; ?>

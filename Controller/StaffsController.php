@@ -773,7 +773,7 @@ class StaffsController extends RailCompetencyAppController
 		return (substr($haystack, -$length) === $needle);
 	}
 
-	function edit_race($id = null, $event_id = null)
+	function edit_race($id = null, $event_id = null, $tab = null)
 	{
 		$this->log('edit_race');
 		if ($this->request->is(array('post', 'put'))) {
@@ -783,7 +783,7 @@ class StaffsController extends RailCompetencyAppController
 				$this->Session->setFlash(__('The staff has been updated.'), 'default', array('class' => 'alert alert-success'));
 				$this->log('updated');
 
-				return $this->redirect(array('controller' => 'event_claims', 'action' => 'manage', $event_id, 'tab:Participants'));
+				return $this->redirect(array('controller' => 'event_claims', 'action' => 'manage', $event_id, 'tab:'.$tab));
 
 			} else {
 				$this->log('failed');

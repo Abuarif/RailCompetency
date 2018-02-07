@@ -334,8 +334,8 @@ if (!empty($event['Event'])) {
                       <?php echo (!empty($myposition) ? $myposition['Position']['name'] : ''); ?>
                     </td>
                     <td>
-                      <?php echo $this->Html->link(' Add', array('controller' => 'staff_qualifications', 'action' => 'create_qualification', $eventAttendance['EventAttendance']['staff_id'], $eventAttendance['EventAttendance']['event_id']), array('class' => 'fa fa-gears btn btn-danger', 'escape' => false, 'data-toggle' => 'ajaxModal')); ?>
-                      <?php echo $this->Html->link(' Edit Race', array('controller' => 'staffs', 'action' => 'edit_race', $eventAttendance['EventAttendance']['staff_id'], $eventAttendance['EventAttendance']['event_id']), array('class' => 'fa fa-gears btn btn-warning', 'escape' => false, 'data-toggle' => 'ajaxModal')); ?>
+                      <?php echo $this->Html->link(' Add', array('controller' => 'staff_qualifications', 'action' => 'create_qualification', $eventAttendance['EventAttendance']['staff_id'], $eventAttendance['EventAttendance']['event_id'], 'Nomination'), array('class' => 'fa fa-gears btn btn-danger', 'escape' => false, 'data-toggle' => 'ajaxModal')); ?>
+                      <?php echo $this->Html->link(' Edit Race', array('controller' => 'staffs', 'action' => 'edit_race', $eventAttendance['EventAttendance']['staff_id'], $eventAttendance['EventAttendance']['event_id'], 'Nomination'), array('class' => 'fa fa-gears btn btn-warning', 'escape' => false, 'data-toggle' => 'ajaxModal')); ?>
                     </td>
                   </tr>
                 <?php $iterate++; ?>
@@ -428,8 +428,8 @@ if (!empty($event['Event'])) {
                       <?php echo (!empty($myposition) ? $myposition['Position']['name'] : ''); ?>
                     </td>
                     <td>
-                      <?php echo $this->Html->link(' Add', array('controller' => 'staff_qualifications', 'action' => 'create_qualification', $eventAttendance['EventAttendance']['staff_id'], $eventAttendance['EventAttendance']['event_id']), array('class' => 'fa fa-gears btn btn-danger', 'escape' => false, 'data-toggle' => 'ajaxModal')); ?>
-                      <?php echo $this->Html->link(' Edit Race', array('controller' => 'staffs', 'action' => 'edit_race', $eventAttendance['EventAttendance']['staff_id'], $eventAttendance['EventAttendance']['event_id']), array('class' => 'fa fa-gears btn btn-warning', 'escape' => false, 'data-toggle' => 'ajaxModal')); ?>
+                      <?php echo $this->Html->link(' Add', array('controller' => 'staff_qualifications', 'action' => 'create_qualification', $eventAttendance['EventAttendance']['staff_id'], $eventAttendance['EventAttendance']['event_id'], 'Attendance'), array('class' => 'fa fa-gears btn btn-danger', 'escape' => false, 'data-toggle' => 'ajaxModal')); ?>
+                      <?php echo $this->Html->link(' Edit Race', array('controller' => 'staffs', 'action' => 'edit_race', $eventAttendance['EventAttendance']['staff_id'], $eventAttendance['EventAttendance']['event_id'], 'Attendance'), array('class' => 'fa fa-gears btn btn-warning', 'escape' => false, 'data-toggle' => 'ajaxModal')); ?>
                     </td>
                   </tr>
                 <?php $iterate++; ?>

@@ -60,8 +60,11 @@ class EventClaimsController extends RailCompetencyAppController
 
 		// find attendees who have completed the course only.
 		$attendance = new EventAttendancesController;
-		$options['conditions'] = array('EventAttendance.event_id' => $event_id, 'EventAttendance.is_completed' => 'true');
-		$myAttendances = $attendance->EventAttendance->find('all', $options);
+		$options1['conditions'] = array('EventAttendance.event_id' => $event_id, 'EventAttendance.is_enrolled' => true, 'EventAttendance.is_completed' => false);
+		$myNominations = $attendance->EventAttendance->find('all', $options1);
+
+		$options2['conditions'] = array('EventAttendance.event_id' => $event_id, 'EventAttendance.is_enrolled' => true,'EventAttendance.is_completed' => true);
+		$myAttendances = $attendance->EventAttendance->find('all', $options2);
 
 		$trainer = new EventTrainersController;
 		$myTrainers = $trainer->get_trainers($event_id);
@@ -69,7 +72,7 @@ class EventClaimsController extends RailCompetencyAppController
 		$course = new CoursesController;
 		$myCourse = $course->object($event['Event']['course_id']);
 
-		$this->set(compact('event', 'claim', 'myAttendances', 'myTrainers', 'myCourse'));
+		$this->set(compact('event', 'claim', 'myNominations', 'myAttendances', 'myTrainers', 'myCourse'));
 	}
 	public function ends_with($haystack, $needle)
 	{
@@ -452,6 +455,71 @@ class EventClaimsController extends RailCompetencyAppController
 		}
 
 		return (substr($haystack, -$length) === $needle);
+	}
+
+	public function export_nomination($event_id = null, $course_code = null)
+	{
+		$data = array();
+		$options['conditions'] = array('Event.id' => $event_id);
+		$event = $this->EventClaim->Event->find('first', $options);
+
+		// find attendees who have completed the course only.
+		$attendance = new EventAttendancesController;
+		$options['conditions'] = array('EventAttendance.event_id' => $event_id, 'EventAttendance.is_enrolled' => true, 'EventAttendance.is_completed' => false);
+		$myAttendances = $attendance->EventAttendance->find('all', $options);
+
+		$header['HRDF']['NRIC'] = 'IC No.';
+		$header['HRDF']['name'] = 'Name';
+		$header['HRDF']['gender'] = 'Gender';
+		$header['HRDF']['race'] = 'Race';
+		$header['HRDF']['qualification'] = 'Academic Qualification';
+		$header['HRDF']['position'] = 'Trainee Designation';
+		$header['HRDF']['branch'] = 'HQ/Branch';
+		$header['HRDF']['distance'] = 'Distance to Training';
+		$header['HRDF']['other'] = 'Specify (if Other Race)';
+		$data[] = $header;
+
+		foreach ($myAttendances as $eventAttendance) {
+			$staff = new StaffsController;
+			$qualification = new StaffQualificationsController;
+			$position = new PositionsController;
+
+			$participant = $staff->object($eventAttendance['EventAttendance']['staff_id']);
+			
+			if (!empty($participant)) {
+				$trainee['HRDF']['NRIC'] = $participant['Staff']['NRIC'];
+				$trainee['HRDF']['name'] = $participant['Staff']['name'];
+				if ($participant['Staff']['NRIC']%2 == 0) {
+					$trainee['HRDF']['gender'] = 'Female';
+				} else {
+					$trainee['HRDF']['gender'] = 'Male';					
+				}
+				$trainee['HRDF']['race'] = $participant['Staff']['race'];
+
+				$myQualification = $qualification->myself($eventAttendance['EventAttendance']['staff_id']);
+				if (!empty($myQualification)) {
+					$trainee['HRDF']['qualification'] = $myQualification['StaffQualification']['certificate_name'];
+				} else {
+					$trainee['HRDF']['qualification'] = 'Diploma';
+				}
+
+				$myPosition = $position->object($participant['Staff']['position_id']);
+				if (!empty($myPosition)) {
+					$trainee['HRDF']['position'] = $myPosition['Position']['name'];
+				} else {
+					$trainee['HRDF']['position'] = 'Technician';
+				}
+				$trainee['HRDF']['branch'] = 'RAPID RAIL SDN. BHD.';
+				$trainee['HRDF']['distance'] = 'Less 70 km';
+				$trainee['HRDF']['other'] = ' ';
+				$data[] = $trainee;
+			}
+		}
+		
+		$this->set(compact('data', 'course_code'));
+		$this->layout = null;
+		$this->autoLayout = false;
+
 	}
 
 	public function export($event_id = null, $course_code = null)

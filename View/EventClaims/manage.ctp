@@ -45,8 +45,8 @@ if (!empty($event['Event'])) {
   <header class="panel-heading text-right bg-light dker bg-gradient" style="height:auto">
     <ul class="nav nav-tabs pull-left">
       <li <?php echo ($myActive == 'dashboard' ? 'class="active"' : ''); ?> ><a href="#dashboard" data-toggle="tab">Dashboard</a></li>
-      <?php //if ($event['Event']['is_tcn'] == 1) { ?>
-      <li <?php echo ($myActive == 'Participant' ? 'class="active"' : ''); ?> ><a href="#Participants" data-toggle="tab">Participants</a></li>
+      <li <?php echo ($myActive == 'Nomination' ? 'class="active"' : ''); ?> ><a href="#Nomination" data-toggle="tab">Nomination</a></li>
+      <li <?php echo ($myActive == 'Attendance' ? 'class="active"' : ''); ?> ><a href="#Attendance" data-toggle="tab">Attendance</a></li>
       <li <?php echo ($myActive == 'HRDF' ? 'class="active"' : ''); ?> ><a href="#HRDF" data-toggle="tab">Documents</a></li>
       <?php //} ?>
       
@@ -267,17 +267,109 @@ if (!empty($event['Event'])) {
         </section>
       </div>
 
-      <div class="tab-pane padder <?php echo ($myActive == 'Participants' ? 'active' : ''); ?>" id="Participants">
-        <h3><?php echo __('Related Participants'); ?></h3>
+      <div class="tab-pane padder <?php echo ($myActive == 'Nomination' ? 'active' : ''); ?>" id="Nomination">
+        <h3><?php echo __('Nominated Participants'); ?></h3>
         <section class="panel panel-default">
           <div class="row wrapper">
             <div class="col-sm-5 m-b-xs">
               <div class="btn-group">
                 <button type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Refresh" class="btn btn-sm btn-default" title="Refresh" onclick ='location.reload();'><i class="fa fa-refresh"></i>&nbsp;&nbsp;Refresh</button>
               </div>
-              <?php echo $this->Html->link(' Trainee List (.csv)', array('action' => 'export',  $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
-              <?php echo $this->Html->link(' Trainee List (.xls)', array('action' => 'export_xls',  $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
-              <?php echo $this->Html->link(' Trainee List 2 (.xls)', array('action' => 'export_xls_2',  $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
+              <?php echo $this->Html->link(' Trainee List (.csv)', array('action' => 'export_nomination', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
+            </div>
+            <div class="col-sm-4 m-b-xs"></div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+              <thead>
+                <tr>
+                  <th> No </th>
+                  <th><?php echo __('Staff No'); ?></th>
+                  <th><?php echo __('NRIC'); ?></th>
+                  <th><?php echo __('Name'); ?></th>
+                  <th><?php echo __('Academic Qualification'); ?></th>
+                  <th><?php echo __('Gender'); ?></th>
+                  <th><?php echo __('Race'); ?></th>
+                  <th><?php echo __('Trainee Designation'); ?></th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php if (!empty($myNominations)) { ?>
+                <?php $iterate = 1; ?>
+                <?php foreach ($myNominations as $eventAttendance) : ?>
+                <?php if (isset($eventAttendance['EventAttendance']['staff_id'])) { ?>
+                  <tr>
+                    <?php 
+                    $participant = $this->requestAction(
+                      array(
+                        'plugin' => 'rail_competency', 'controller' => 'staffs',
+                        'action' => 'object', $eventAttendance['EventAttendance']['staff_id']
+                      )
+                    );
+
+                    ?>
+                    <td><?php echo $iterate; ?> </td>
+                    <td>
+                      <?php echo $participant['Staff']['staff_no']; ?>
+                    </td>
+                    <td>
+                      <?php echo $participant['Staff']['NRIC']; ?>
+                    </td>
+                    <td>
+                      <?php echo $participant['Staff']['name']; ?>
+                    </td>
+                    <td>
+                      <?php $myQualification = $this->requestAction('/rail_competency/staff_qualifications/myself/' . $eventAttendance['EventAttendance']['staff_id']); ?>
+                      <?php echo (!empty($myQualification) ? $myQualification['StaffQualification']['certificate_name'] : ''); ?>
+                    </td>
+                    <td>
+                      <?php echo ($participant['Staff']['NRIC'] % 2 == 0 ? 'Female' : 'Male'); ?>
+                    </td>
+                    <td>
+                      <?php echo $participant['Staff']['race']; ?>
+                    </td>
+                    <td>
+                    <?php $myposition = $this->requestAction('/rail_competency/positions/object/' . $participant['Staff']['position_id']); ?>
+                      <?php echo (!empty($myposition) ? $myposition['Position']['name'] : ''); ?>
+                    </td>
+                    <td>
+                      <?php echo $this->Html->link(' Add', array('controller' => 'staff_qualifications', 'action' => 'create_qualification', $eventAttendance['EventAttendance']['staff_id'], $eventAttendance['EventAttendance']['event_id']), array('class' => 'fa fa-gears btn btn-danger', 'escape' => false, 'data-toggle' => 'ajaxModal')); ?>
+                      <?php echo $this->Html->link(' Edit Race', array('controller' => 'staffs', 'action' => 'edit_race', $eventAttendance['EventAttendance']['staff_id'], $eventAttendance['EventAttendance']['event_id']), array('class' => 'fa fa-gears btn btn-warning', 'escape' => false, 'data-toggle' => 'ajaxModal')); ?>
+                    </td>
+                  </tr>
+                <?php $iterate++; ?>
+              <?php 
+            } else { ?>
+              <tr>
+                <td colspan="4" style="text-align:center;">No staff profile records found</td>
+              </tr>
+              <?php 
+            } ?>
+              <?php endforeach; ?>
+              <?php 
+            } else { ?>
+              <tr>
+                <td colspan="4" style="text-align:center;">No staff profile records found</td>
+              </tr>
+              <?php 
+            } ?>
+              </tbody>
+            </table>
+            
+          </div>
+        </section>
+      </div>
+
+      <div class="tab-pane padder <?php echo ($myActive == 'Attendance' ? 'active' : ''); ?>" id="Attendance">
+        <h3><?php echo __('Attended Participants'); ?></h3>
+        <section class="panel panel-default">
+          <div class="row wrapper">
+            <div class="col-sm-5 m-b-xs">
+              <div class="btn-group">
+                <button type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Refresh" class="btn btn-sm btn-default" title="Refresh" onclick ='location.reload();'><i class="fa fa-refresh"></i>&nbsp;&nbsp;Refresh</button>
+              </div>
+              <?php echo $this->Html->link(' Trainee List (.csv)', array('action' => 'export', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
             </div>
             <div class="col-sm-4 m-b-xs"></div>
           </div>

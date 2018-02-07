@@ -124,7 +124,10 @@ $actionCount = 0;
               echo $this->Html->link('<i class="fa fa-check-square-o pull-left"></i>Publish Event', array('controller' => 'events', 'action' => 'publish', $event['Event']['id']), array('data-toggle'=>'ajaxModal', 'escape' => false, 'confirm' => 'Are you sure you wish to publish the event?')); 
               // echo $this->Form->postLink('<i class="fa fa-check-square-o pull-left"></i>Publish Event 2', array('controller' => 'events', 'action' => 'confirmed_event', $event['Event']['id']), array('escape' => false, 'confirm' => 'Are you sure you wish to confirm the event?')); 
               ?>
-        </li>    
+        </li>  
+        <li>
+          <?php echo $this->Form->postLink('<i class="fa fa-dollar pull-left"></i> HRDF Claim', array('controller' => 'event_claims', 'action' => 'manage', $event['Event']['id']), array('escape' => false )); ?>
+        </li>  
         <?php  } else { ?>
         <li>
         <?php
@@ -172,9 +175,6 @@ $actionCount = 0;
           <?php echo $this->Form->postLink('<i class="fa fa-cloud-download pull-left"></i>Download Memo', array('controller' => 'events', 'action' => 'memo', $event['Event']['id'].'.pdf'), array('target' => '_blank', 'escape' => false, 'confirm' => 'Are you sure you wish to download the memo?')); ?>
         </li>
         <?php   } ?>
-        <li>
-          <?php echo $this->Form->postLink('<i class="fa fa-dollar pull-left"></i> HRDF Claim', array('controller' => 'event_claims', 'action' => 'manage', $event['Event']['id']), array('escape' => false )); ?>
-        </li>
         <li>
           <?php echo $this->Html->link('<i class="fa fa-envelope pull-left"></i>Email Memo', array('controller' => 'events', 'action' => 'email_memo', $event['Event']['id']), array('data-toggle'=>'ajaxModal', 'escape' => false, 'confirm' => 'Are you sure you wish to email this memo?')); ?>
         </li>

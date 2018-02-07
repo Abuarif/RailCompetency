@@ -60,7 +60,7 @@ class EventClaimsController extends RailCompetencyAppController
 
 		// find attendees who have completed the course only.
 		$attendance = new EventAttendancesController;
-		$options1['conditions'] = array('EventAttendance.event_id' => $event_id, 'EventAttendance.is_enrolled' => true, 'EventAttendance.is_completed' => false);
+		$options1['conditions'] = array('EventAttendance.event_id' => $event_id, 'EventAttendance.is_enrolled' => true);
 		$myNominations = $attendance->EventAttendance->find('all', $options1);
 
 		$options2['conditions'] = array('EventAttendance.event_id' => $event_id, 'EventAttendance.is_enrolled' => true,'EventAttendance.is_completed' => true);
@@ -465,7 +465,7 @@ class EventClaimsController extends RailCompetencyAppController
 
 		// find attendees who have completed the course only.
 		$attendance = new EventAttendancesController;
-		$options['conditions'] = array('EventAttendance.event_id' => $event_id, 'EventAttendance.is_enrolled' => true, 'EventAttendance.is_completed' => false);
+		$options['conditions'] = array('EventAttendance.event_id' => $event_id, 'EventAttendance.is_enrolled' => true);
 		$myAttendances = $attendance->EventAttendance->find('all', $options);
 
 		$header['HRDF']['NRIC'] = 'IC No.';

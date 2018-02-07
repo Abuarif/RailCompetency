@@ -124,15 +124,15 @@ $actionCount = 0;
               echo $this->Html->link('<i class="fa fa-check-square-o pull-left"></i>Publish Event', array('controller' => 'events', 'action' => 'publish', $event['Event']['id']), array('data-toggle'=>'ajaxModal', 'escape' => false, 'confirm' => 'Are you sure you wish to publish the event?')); 
               // echo $this->Form->postLink('<i class="fa fa-check-square-o pull-left"></i>Publish Event 2', array('controller' => 'events', 'action' => 'confirmed_event', $event['Event']['id']), array('escape' => false, 'confirm' => 'Are you sure you wish to confirm the event?')); 
               ?>
-        </li>  
-        <li>
-          <?php echo $this->Form->postLink('<i class="fa fa-dollar pull-left"></i> HRDF Claim', array('controller' => 'event_claims', 'action' => 'manage', $event['Event']['id']), array('escape' => false )); ?>
-        </li>  
+        </li>   
         <?php  } else { ?>
         <li>
         <?php
               echo $this->Form->postLink('<i class="fa fa-times pull-left"></i>Unpublish Event', array('controller' => 'events', 'action' => 'revert_scheduled_event', $event['Event']['id']), array('escape' => false, 'confirm' => 'Are you sure you wish to unpublish the event?')); 
               ?>
+        </li> 
+        <li>
+          <?php echo $this->Form->postLink('<i class="fa fa-dollar pull-left"></i> HRDF Claim', array('controller' => 'event_claims', 'action' => 'manage', $event['Event']['id']), array('escape' => false )); ?>
         </li> 
         <?php } ?>
         <?php if (empty($event_memos) && count($event_attendances) > 0) { ?>

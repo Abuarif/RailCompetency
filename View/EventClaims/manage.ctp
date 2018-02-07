@@ -275,6 +275,7 @@ if (!empty($event['Event'])) {
               <div class="btn-group">
                 <button type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Refresh" class="btn btn-sm btn-default" title="Refresh" onclick ='location.reload();'><i class="fa fa-refresh"></i>&nbsp;&nbsp;Refresh</button>
               </div>
+              <?php echo $this->Html->link(' Trainee List', array('action' => 'export',  $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
             </div>
             <div class="col-sm-4 m-b-xs"></div>
           </div>

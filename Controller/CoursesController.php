@@ -114,33 +114,39 @@ class CoursesController extends RailCompetencyAppController
 
 			            // find matched trainingprovider 
 						foreach ($myProvider as $key => $value) {
-							$this->log('Data: ' . trim(strtoupper($myCSV[1])));
-							$this->log('Value: ' . $value);
+							// $this->log('Data: ' . trim(strtoupper($myCSV[1])));
+							// $this->log('Value: ' . $value);
 
 							if (trim(strtoupper($myCSV[1])) == strtoupper($value)) {
 								$data['Course']['training_provider_id'] = $key;
+								$this->log('Training Provider: '. $value);
+								$this->log('Training Provider Id: '. $key);
 							}
 						}
 
 			            // find matched module 
 						foreach ($myModule as $key => $value) {
-							$this->log('Data: ' . trim(strtoupper($myCSV[2])));
-							$this->log('Value: ' . $value);
+							// $this->log('Data: ' . trim(strtoupper($myCSV[2])));
+							// $this->log('Value: ' . strtoupper($value));
 
 							if (trim(strtoupper($myCSV[2])) == strtoupper($value)) {
 			            	// if ( trim(strtoupper($myCSV[2])) == $value) {
 								$data['Course']['module_id'] = $key;
+								$this->log('Module : '. $value);
+								$this->log('Module Id: '. $key);
 							}
 						}
 
 			            // find matched service 
 						foreach ($myService as $key => $value) {
 							$this->log('Data: ' . trim(strtoupper($myCSV[3])));
-							$this->log('Value: ' . $value);
+							$this->log('Value: ' . strtoupper($value));
 
-							if (trim(strtoupper($myCSV[3])) == strtoupper($value)) {
+							if (trim(strtoupper($myCSV[3])) == trim(strtoupper($value))) {
 			            	// if ( trim(strtoupper($myCSV[3])) == $value) {
 								$data['Course']['service_id'] = $key;
+								$this->log('Service: '. $value);
+								$this->log('Service Id: '. $key);
 							}
 						}
 

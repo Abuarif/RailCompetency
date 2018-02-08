@@ -22,6 +22,7 @@ class CoursesController extends RailCompetencyAppController
 	 * @var array
 	 */
 	public $components = array('Paginator', 'Search.Prg');
+	public $helpers = array('Csv');
 	public $logfile = array();
 
 	public function beforeFilter()

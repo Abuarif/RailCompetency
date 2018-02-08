@@ -275,9 +275,10 @@ if (!empty($event['Event'])) {
               <div class="btn-group">
                 <button type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Refresh" class="btn btn-sm btn-default" title="Refresh" onclick ='location.reload();'><i class="fa fa-refresh"></i>&nbsp;&nbsp;Refresh</button>
               </div>
-              <?php echo $this->Html->link(' Trainee List (.csv)', array('action' => 'export_nomination', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
+              <?php echo $this->Html->link(' Trainee List (.csv)', array('action' => 'export', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
+              <?php echo $this->Html->link(' Trainee List (.xlsx)', array('action' => 'export_xls', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
+              <?php echo $this->Html->link(' Trainee List (.xls)', array('action' => 'export_xls_2', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
             </div>
-            <div class="col-sm-4 m-b-xs"></div>
           </div>
           <div class="table-responsive">
             <table class="table table-striped b-t b-light">
@@ -365,7 +366,7 @@ if (!empty($event['Event'])) {
         <h3><?php echo __('Attended Participants'); ?></h3>
         <section class="panel panel-default">
           <div class="row wrapper">
-            <div class="col-sm-5 m-b-xs">
+            <div class="col-sm-9 m-b-xs">
               <div class="btn-group">
                 <button type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Refresh" class="btn btn-sm btn-default" title="Refresh" onclick ='location.reload();'><i class="fa fa-refresh"></i>&nbsp;&nbsp;Refresh</button>
               </div>
@@ -373,7 +374,6 @@ if (!empty($event['Event'])) {
               <?php echo $this->Html->link(' Trainee List (.xlsx)', array('action' => 'export_xls', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
               <?php echo $this->Html->link(' Trainee List (.xls)', array('action' => 'export_xls_2', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
             </div>
-            <div class="col-sm-4 m-b-xs"></div>
           </div>
           <div class="table-responsive">
             <table class="table table-striped b-t b-light">

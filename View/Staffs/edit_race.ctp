@@ -11,6 +11,8 @@
 			<?php
 				echo $this->Form->input('id', array('class' => 'form-control'));
 				echo $this->Form->input('name', array('class' => 'form-control', 'readonly' => 'readonly'));
+				echo '<br>';		
+				echo $this->Form->input('NRIC', array('class' => 'form-control'));
 				echo '<br>';				
 				echo $this->Form->input('race', array('class' => 'form-control', 'options' => $races, 'empty' => 'Select Race'));
 				echo '<br>';

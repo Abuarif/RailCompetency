@@ -8,9 +8,9 @@
     </div>
     <div class="modal-body">
       <p> Sample CSV file: <BR>
-        1,Rail Academy DepartmentÊ,General Course & Common CoreÊ,Kelana Jaya Line Systems and Subsystems Common Core Training,CODE001,Test Course Name 001,10,0,0,This is a sample course details.,3,0,0<br/>
-2,Bombardier (BHC),Rolling Stock,Kelana Jaya Line Systems and Subsystems Common Core Training,CODE002,Test Course Name 002,20,0,0,This is a sample course details.,5,0,1</p>
-				<?php
+        No, Training Provider, Module Name, Service Line Name, Course Code, Course Name, Pax, Cost per Pax, Total Cost, Course Details, Course Duration, Refresher Course, External Course, Active
+        <br>1,Rail Academy Department, Common Core, KELANA JAYA LINE, TESTCODE001,Test Course Name 001,10,0,0,This is a sample course details.,3,0,0
+<?php
 		echo $this->Form->input('files', array('type' => 'file', 'class' => 'form-control'));
 	?>
 	</div>

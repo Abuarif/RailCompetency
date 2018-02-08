@@ -11,16 +11,14 @@
 
 <section class="panel panel-default">
 <div class="row wrapper">
-  <div class="col-sm-5 m-b-xs">
+  <div class="col-sm-9 m-b-xs">
     <div class="btn-group">
       <button type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Refresh" class="btn btn-sm btn-default" title="Refresh" onclick ='location.reload();'><i class="fa fa-refresh"></i>&nbsp;&nbsp;Refresh</button>
     </div>
-    <?php echo $this->Html->link('<i class="fa fa-plus"></i>&nbsp;&nbsp;Create', array('action' => 'add'), array('class' => 'btn btn-success btn-sm', 'data-toggle'=>'ajaxModal', 'escape' => false)); ?>
-    <?php echo $this->Html->link('<i class="fa fa-upload"></i>&nbsp;&nbsp;Upload', array('action' => 'import'), array('class' => 'btn btn-success btn-sm', 'data-toggle'=>'ajaxModal', 'escape' => false)); ?>
-    <?php echo $this->Html->link('<i class="fa fa-upload"></i>&nbsp;&nbsp;Upload New Course Code', array('action' => 'import_new_code'), array('class' => 'btn btn-success btn-sm', 'data-toggle'=>'ajaxModal', 'escape' => false)); ?>
-  </div>
-  <div class="col-sm-4 m-b-xs">
-    &nbsp;
+    <?php echo $this->Html->link(' Create New Course', array('action' => 'add'), array('class' => 'btn btn-success fa fa-plus', 'data-toggle'=>'ajaxModal', 'escape' => false)); ?>
+    <?php echo $this->Html->link(' Upload New Course', array('action' => 'import'), array('class' => 'btn btn-success fa fa-upload', 'data-toggle'=>'ajaxModal', 'escape' => false)); ?>
+    <?php echo $this->Html->link(' Existing Course Codes (.csv)', array('action' => 'export'), array('class' => 'btn btn-warning fa fa-download', 'escape' => false)); ?>
+    <?php echo $this->Html->link(' Upload New Course Code', array('action' => 'import_new_code'), array('class' => 'btn btn-danger fa fa-upload', 'data-toggle'=>'ajaxModal', 'escape' => false)); ?>
   </div>
   <div class="col-sm-3">
     <?php echo $this->Form->create('Course', array('class' => 'bs-example form-horizontal', 'inputDefaults' => array('label' => false, 'div' => false))); ?>

@@ -674,4 +674,17 @@ class CoursesController extends RailCompetencyAppController
 		return $this->response;
 	}
 
+	public function export()
+	{
+		$data = array();
+		$this->Course->recursive = -1;
+		$options['conditions'] = array('Course.active' => true);
+		$options['fields'] = array('Course.name', 'Course.old_name', 'Course.code', 'Course.old_code');
+		$courses = $this->Course->find('all', $options);
+		
+		$this->set(compact('courses'));
+		$this->layout = null;
+		$this->autoLayout = false;
+
+	}
 }

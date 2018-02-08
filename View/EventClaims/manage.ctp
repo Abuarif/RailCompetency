@@ -370,6 +370,8 @@ if (!empty($event['Event'])) {
                 <button type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Refresh" class="btn btn-sm btn-default" title="Refresh" onclick ='location.reload();'><i class="fa fa-refresh"></i>&nbsp;&nbsp;Refresh</button>
               </div>
               <?php echo $this->Html->link(' Trainee List (.csv)', array('action' => 'export', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
+              <?php echo $this->Html->link(' Trainee List (.xlsx)', array('action' => 'export_xls', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
+              <?php echo $this->Html->link(' Trainee List (.xls)', array('action' => 'export_xls_2', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
             </div>
             <div class="col-sm-4 m-b-xs"></div>
           </div>

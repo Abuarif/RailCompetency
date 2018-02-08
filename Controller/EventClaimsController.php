@@ -628,7 +628,7 @@ class EventClaimsController extends RailCompetencyAppController
 
 				$myQualification = $qualification->myself($eventAttendance['EventAttendance']['staff_id']);
 				if (!empty($myQualification)) {
-					$trainee['HRDF']['qualification'] = $myQualification['StaffQualification']['certificate_name'];
+					$trainee['HRDF']['qualification'] = ucwords($myQualification['StaffQualification']['certificate_name']);
 				} else {
 					$trainee['HRDF']['qualification'] = 'Diploma';
 				}
@@ -692,7 +692,7 @@ class EventClaimsController extends RailCompetencyAppController
 
 				$myQualification = $qualification->myself($eventAttendance['EventAttendance']['staff_id']);
 				if (!empty($myQualification)) {
-					$trainee[] = $myQualification['StaffQualification']['certificate_name'];
+					$trainee[] = ucwords($myQualification['StaffQualification']['certificate_name']);
 				} else {
 					$trainee[] = 'Diploma';
 				}

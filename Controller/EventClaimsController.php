@@ -498,14 +498,14 @@ class EventClaimsController extends RailCompetencyAppController
 
 				$myQualification = $qualification->myself($eventAttendance['EventAttendance']['staff_id']);
 				if (!empty($myQualification)) {
-					$trainee['HRDF']['qualification'] = ucwords($myQualification['StaffQualification']['certificate_name']);
+					$trainee['HRDF']['qualification'] = ucwords(strtolower($myQualification['StaffQualification']['certificate_name']));
 				} else {
 					$trainee['HRDF']['qualification'] = 'Diploma';
 				}
 
 				$myPosition = $position->object($participant['Staff']['position_id']);
 				if (!empty($myPosition)) {
-					$trainee['HRDF']['position'] = $myPosition['Position']['name'];
+					$trainee['HRDF']['position'] = ucwords(strtolower($myPosition['Position']['name']));
 				} else {
 					$trainee['HRDF']['position'] = 'Technician';
 				}
@@ -563,14 +563,14 @@ class EventClaimsController extends RailCompetencyAppController
 
 				$myQualification = $qualification->myself($eventAttendance['EventAttendance']['staff_id']);
 				if (!empty($myQualification)) {
-					$trainee['HRDF']['qualification'] = ucwords($myQualification['StaffQualification']['certificate_name']);
+					$trainee['HRDF']['qualification'] = ucwords(strtolower($myQualification['StaffQualification']['certificate_name']));
 				} else {
 					$trainee['HRDF']['qualification'] = 'Diploma';
 				}
 
 				$myPosition = $position->object($participant['Staff']['position_id']);
 				if (!empty($myPosition)) {
-					$trainee['HRDF']['position'] = $myPosition['Position']['name'];
+					$trainee['HRDF']['position'] = ucwords(strtolower($myPosition['Position']['name']));
 				} else {
 					$trainee['HRDF']['position'] = 'Technician';
 				}

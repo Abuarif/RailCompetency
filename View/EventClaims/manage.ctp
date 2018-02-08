@@ -276,8 +276,6 @@ if (!empty($event['Event'])) {
                 <button type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Refresh" class="btn btn-sm btn-default" title="Refresh" onclick ='location.reload();'><i class="fa fa-refresh"></i>&nbsp;&nbsp;Refresh</button>
               </div>
               <?php echo $this->Html->link(' Trainee List (.csv)', array('action' => 'export_nomination', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
-              <?php echo $this->Html->link(' Trainee List (.xlsx)', array('action' => 'export_xls', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
-              <?php echo $this->Html->link(' Trainee List (.xls)', array('action' => 'export_xls_2', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
             </div>
           </div>
           <div class="table-responsive">
@@ -322,7 +320,7 @@ if (!empty($event['Event'])) {
                     </td>
                     <td>
                       <?php $myQualification = $this->requestAction('/rail_competency/staff_qualifications/myself/' . $eventAttendance['EventAttendance']['staff_id']); ?>
-                      <?php echo (!empty($myQualification) ? $myQualification['StaffQualification']['certificate_name'] : ''); ?>
+                      <?php echo (!empty($myQualification) ? ucwords(strtolower($myQualification['StaffQualification']['certificate_name'])) : 'Diploma'); ?>
                     </td>
                     <td>
                       <?php echo (str_replace('-', '', $participant['Staff']['NRIC']) % 2 == 0 ? 'Female' : 'Male'); ?>
@@ -332,7 +330,7 @@ if (!empty($event['Event'])) {
                     </td>
                     <td>
                     <?php $myposition = $this->requestAction('/rail_competency/positions/object/' . $participant['Staff']['position_id']); ?>
-                      <?php echo (!empty($myposition) ? $myposition['Position']['name'] : ''); ?>
+                      <?php echo (!empty($myposition) ? ucwords(strtolower($myposition['Position']['name'])) : 'Technician'); ?>
                     </td>
                     <td>
                       <?php echo $this->Html->link(' Add', array('controller' => 'staff_qualifications', 'action' => 'create_qualification', $eventAttendance['EventAttendance']['staff_id'], $eventAttendance['EventAttendance']['event_id'], 'Nomination'), array('class' => 'fa fa-gears btn btn-danger', 'escape' => false, 'data-toggle' => 'ajaxModal')); ?>
@@ -371,8 +369,6 @@ if (!empty($event['Event'])) {
                 <button type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Refresh" class="btn btn-sm btn-default" title="Refresh" onclick ='location.reload();'><i class="fa fa-refresh"></i>&nbsp;&nbsp;Refresh</button>
               </div>
               <?php echo $this->Html->link(' Trainee List (.csv)', array('action' => 'export', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
-              <?php echo $this->Html->link(' Trainee List (.xlsx)', array('action' => 'export_xls', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
-              <?php echo $this->Html->link(' Trainee List (.xls)', array('action' => 'export_xls_2', $event['Event']['id'], $myCourse['Course']['code']), array('class' => 'btn btn-success fa fa-download', 'escape' => false)); ?>
             </div>
           </div>
           <div class="table-responsive">

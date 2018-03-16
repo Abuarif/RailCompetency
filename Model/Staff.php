@@ -41,6 +41,7 @@ class Staff extends RailCompetencyAppModel {
 			'type' => 'like',
 			'field' => array(
 				'Organization.name',
+				'Position.name',
 				'Staff.name',
 				'Staff.staff_no',
 				'Staff.org_code',

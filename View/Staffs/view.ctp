@@ -312,15 +312,23 @@
             <table class="table table-striped b-t b-light">
               <thead>
                 <tr>
-                  <th class="actions"><?php echo __('Actions'); ?></th>
                   <th>
-                    <?php echo __('Certificate Name'); ?>
+                    <?php echo __('Name'); ?>
                   </th>
                   <th>
-                    <?php echo __('Start Date'); ?>
+                    <?php echo __('Year'); ?>
                   </th>
                   <th>
-                    <?php echo __('End Date'); ?>
+                    <?php echo __('Status'); ?>
+                  </th>
+                  <th>
+                    <?php echo __('Code'); ?>
+                  </th>
+                  <th>
+                    <?php echo __('NOSS'); ?>
+                  </th>
+                  <th>
+                    <?php echo __('Level'); ?>
                   </th>
                 </tr>
               </thead>
@@ -328,13 +336,12 @@
                 <?php if (!empty($staff['StaffCertification'])){ ?>
                <?php foreach ($staff['StaffCertification'] as $staffCertification): ?>
                 <tr>
-                  <td class="actions">
-                  <?php echo $this->Html->link('', array('controller' => 'staff_certifications', 'action' => 'sneak', $staffCertification['id']), array('class'=>'btn btn-xs btn-success fa fa-desktop', 'style'=>'color:#000;width:25px; height:25px; padding-top:5px','data-toggle'=>'tooltip', 'data-placement'=>'right', 'title'=>'View Details', 'data-toggle'=>'ajaxModal', 'escape' => false)); ?>
-                  <?php echo $this->Html->link('', array('controller' => 'staff_certifications', 'action' => 'edit', $staffCertification['id'], $staff['Staff']['id']), array('class'=>'btn btn-xs btn-warning fa fa-pencil', 'style'=>'color:#000;width:25px; height:25px; padding-top:5px','data-toggle'=>'tooltip', 'data-placement'=>'right', 'title'=>'Modify Details', 'data-toggle'=>'ajaxModal', 'escape' => false)); ?>
-                  </td>
-                  <td><?php echo $staffCertification['certificate_name']; ?></td>
-                  <td><?php echo $this->Time->format('d-m-Y', $staffCertification['start_date']); ?></td>
-                  <td><?php echo $this->Time->format('d-m-Y', $staffCertification['end_date']); ?></td>
+                  <td><?php echo $staffCertification['name']; ?></td>
+                  <td><?php echo $staffCertification['year']; ?></td>
+                  <td><?php echo $staffCertification['status']; ?></td>
+                  <td><?php echo $staffCertification['code']; ?></td>
+                  <td><?php echo $staffCertification['noss']; ?></td>
+                  <td><?php echo $staffCertification['level']; ?></td>
                 </tr>
               <?php endforeach; ?>
               <?php }else{ ?>

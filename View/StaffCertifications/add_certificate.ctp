@@ -3,7 +3,14 @@
 </style>
 
 
-
+<?php 
+	$status = array(
+		'Completed' => 'Completed',
+		'In Progress' => 'In Progress',
+		'Incomplete' => 'Incomplete',
+		'Incomplete (Batch 1' => 'Incomplete (Batch 1'
+	);
+?>
 <div class="modal-dialog">
   <div class="modal-content">
   	<?php echo $this->Form->create('StaffCertification', array('type' => 'file', 'class' => 'bs-example form-horizontal')); ?>
@@ -13,19 +20,21 @@
     </div>
     <div class="modal-body">
 				<?php
-		echo $this->Form->input('staff_id', array('class' => 'form-control'));
-		echo $this->Form->input('certificate_name', array('class' => 'form-control'));
-		echo $this->Form->input('start_date', array('class' => 'datepicker-input control-label form-control', 'value' => date("d-m-Y"), 'data-date-format' => 'dd-mm-yyyy', 'type' => 'text', 'style' => 'z-index: 100000!important;'));
-		echo $this->Form->input('end_date', array('class' => 'datepicker-input control-label form-control', 'value' => date("d-m-Y"), 'data-date-format' => 'dd-mm-yyyy', 'type' => 'text', 'style' => 'z-index: 100000!important;'));
-		echo $this->Form->input('status', array('class' => 'form-control'));
-	?>
+			echo $this->Form->input('staff_id', array('class' => 'form-control'));
+			echo $this->Form->input('name', array('class' => 'form-control'));
+			echo $this->Form->input('year', array('class' => 'form-control'));
+			echo $this->Form->input('status', array('class' => 'form-control', 'options' => $status));
+			echo $this->Form->input('code', array('class' => 'form-control'));
+			echo $this->Form->input('noss', array('class' => 'form-control'));
+			echo $this->Form->input('level', array('class' => 'form-control'));
+			?>
 	</div>
     <div class="modal-footer">
     	<?php echo $this->Layout->sessionFlash(); ?>
     	<a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
-    	<?php echo $this->Form->button('Submit', array('class' => 'btn btn-primary'));?>
+    	<?php echo $this->Form->button('Submit', array('class' => 'btn btn-primary')); ?>
     </div>
-    	<?php echo $this->Form->end();?>
+    	<?php echo $this->Form->end(); ?>
   </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
 

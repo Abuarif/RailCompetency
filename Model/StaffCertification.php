@@ -12,7 +12,13 @@ class StaffCertification extends RailCompetencyAppModel {
 		'queryString' => array(
 			'type' => 'like',
 			'field' => array(
+				'Staff.name',
 				'name',
+				'status',
+				'year',
+				'code',
+				'noss',
+				'level',
 				'created',
 				'updated',
 			),

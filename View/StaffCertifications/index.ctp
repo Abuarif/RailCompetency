@@ -39,15 +39,17 @@
                                                         					                                  						<th>
             							 <?php echo $this->Paginator->sort('staff_id'); ?>            						</th>
                                     					                                  						<th>
-            							 <?php echo $this->Paginator->sort('certificate_name'); ?>            						</th>
+            							 <?php echo $this->Paginator->sort('name'); ?>            						</th>
                                     					                                  						<th>
-            							 <?php echo $this->Paginator->sort('start_date'); ?>            						</th>
-                                    					                                  						<th>
-            							 <?php echo $this->Paginator->sort('end_date'); ?>            						</th>
-                                    					                                  					                                  						<th>
-            							 <?php echo $this->Paginator->sort('updated'); ?>            						</th>
+            							 <?php echo $this->Paginator->sort('year'); ?>            						</th>
                                     					                                  						<th>
             							 <?php echo $this->Paginator->sort('status'); ?>            						</th>
+                                    					                                  						<th>
+            							 <?php echo $this->Paginator->sort('code'); ?>            						</th>
+                                    					                                  					                                  						<th>
+            							 <?php echo $this->Paginator->sort('noss'); ?>            						</th>
+                                    					                                  						<th>
+            							 <?php echo $this->Paginator->sort('level'); ?>            						</th>
                                     					                        <th width="30"></th>
                       </tr>
                     </thead>
@@ -62,11 +64,12 @@
 		<td>
 			<?php echo $this->Html->link($staffCertification['Staff']['name'], array('controller' => 'staffs', 'action' => 'view', $staffCertification['Staff']['id'])); ?>
 		</td>
-		<td><?php echo h($staffCertification['StaffCertification']['certificate_name']); ?>&nbsp;</td>
-		<td><?php echo h($staffCertification['StaffCertification']['start_date']); ?>&nbsp;</td>
-		<td><?php echo h($staffCertification['StaffCertification']['end_date']); ?>&nbsp;</td>
-		<td><?php echo h($staffCertification['StaffCertification']['updated']); ?>&nbsp;</td>
+		<td><?php echo h($staffCertification['StaffCertification']['name']); ?>&nbsp;</td>
+		<td><?php echo h($staffCertification['StaffCertification']['year']); ?>&nbsp;</td>
 		<td><?php echo h($staffCertification['StaffCertification']['status']); ?>&nbsp;</td>
+		<td><?php echo h($staffCertification['StaffCertification']['code']); ?>&nbsp;</td>
+		<td><?php echo h($staffCertification['StaffCertification']['noss']); ?>&nbsp;</td>
+		<td><?php echo h($staffCertification['StaffCertification']['level']); ?>&nbsp;</td>
 	</tr>
 <?php endforeach; ?>
 						
@@ -91,10 +94,12 @@
                       <ul class="pagination pagination-sm m-t-none m-b-none">
                         
                         <?php
+		echo '<li>'.$this->Paginator->first(__('first'), array(), null, array('class' => 'prev disabled')).'</li>';
 		echo '<li>'.$this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled')).'</li>';
 		echo '<li>'.$this->Paginator->numbers(array('separator' => '</li>
                         <li>')).'</li>';
 		echo '<li>'.$this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled')).'</li>';
+		echo '<li>'.$this->Paginator->last(__('last') , array(), null, array('class' => 'next disabled')).'</li>';
 	?>
                       </ul>
                     </div>

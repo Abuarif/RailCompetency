@@ -466,10 +466,12 @@ class EventsController extends RailCompetencyAppController {
 
 	public function attendance_2($id = null) {
 		// $this->layout = 'public';
+		
 		if (!$this->Event->exists($id)) {
 			throw new NotFoundException(__('Invalid event'));
 		}
 		$options = array('conditions' => array('Event.' . $this->Event->primaryKey => $id));
+		$event = $this->Event->find('first', $options);
 		$this->set('event', $this->Event->find('first', $options));
 	}
 

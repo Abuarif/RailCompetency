@@ -8,7 +8,7 @@
     display: inline-block;
     min-width: 10px;
     padding: 3px 7px;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: bold;
     line-height: 1;
     color: #fff;
@@ -22,6 +22,10 @@
     background-color:red;
   }
 
+  @page {
+  size: landscape;
+}
+
 </style>
 
 <?php 
@@ -32,9 +36,9 @@
   if ($event['Event']['is_weekend']) {
     $weekend = 1;
   } 
-  echo 'is_weekend: '.$weekend;
+  // echo 'is_weekend: '.$weekend;
   $max = $this->requestAction('/rail_competency/events/getWorkingDays/'.$this->Time->format($event['Event']['start_date'], '%Y-%m-%d').'/'.$this->Time->format($event['Event']['end_date'], '%Y-%m-%d').'/'.$weekend);
-  echo 'max: '.$max;
+  // echo 'max: '.$max;
   $count = 1;
   if (!empty($event['EventAttendance']))
     if ($event['EventAttendance'][0]['is_enrolled']) {
@@ -46,19 +50,19 @@
   <div style="page-break-before:always;">
 <?php } ?>
 
-<table>
+<table style="width:100%!important;">
    <tr>
-    <td style="width: 50%;text-align: left;">
+    <td style="width: 100%;text-align: right!important;;">
       <?php echo $this->Html->image('http://'.$_SERVER['SERVER_NAME'].Router::url('/')."theme/LamanPuteri/images/prasarana_ico.png", array('height'=> '24', 'width'=>'24')); ?>
       <?php echo $this->Html->image('http://'.$_SERVER['SERVER_NAME'].Router::url('/')."theme/LamanPuteri/images/prasarana_logo_icon.png", array('height'=> '24', 'width'=>'140')); ?>
     </td>
-    <td style="width: 50%;text-align: right;">
+    <!-- <td style="width: 50%;text-align: right;">
       RR/RAD/FM-02 Rev:0
-    </td>
+    </td> -->
   </tr>
 </table>
 
-<table style="padding-top: 30px;" cellpadding="0" cellspacing="0">
+<!-- <table style="padding-top: 30px;" cellpadding="0" cellspacing="0">
   <tr style="text-align:center;">
     <td style="font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:24px;width:50%;">
       RAIL ACADEMY
@@ -69,13 +73,13 @@
       TRAINING ATTENDANCE
     </td>
   </tr>
-</table>
+</table> -->
 <br>
 
 <table cellpadding="0" cellspacing="0">
   <tr style="height: 25px;">
     <td style=" width: 200px;vertical-align: text-top;font-weight:bold;">
-      Course
+      Program Title
     </td>
     <td style="width: 50px;vertical-align: text-top;font-weight:bold;">
       :
@@ -93,7 +97,7 @@
   </tr>
   <tr style="height: 25px;">
     <td style=" width: 200px;vertical-align: text-top;font-weight:bold;">
-      Class Date
+      Date
     </td>
     <td style="width: 50px;vertical-align: text-top;font-weight:bold;">
       :
@@ -104,32 +108,6 @@
         $myDate = $this->requestAction('rail_competency/events/print_date/'.$start_date.'/'.$day);
         echo $myDate;
       ?>
-    </td>
-  </tr>
-  <tr style="height: 25px;">
-    <td style=" width: 200px;vertical-align: text-top;font-weight:bold;">
-      Venue
-    </td>
-    <td style="width: 50px;vertical-align: text-top;font-weight:bold;">
-      :
-    </td>
-    <td style="width: 1000px;vertical-align: text-top;">
-      <?php echo $event['Venue']['name'].', '.$event['Venue']['location']; ?>
-    </td>
-  </tr>
-  <tr style="height: 25px;">
-    <td style=" width: 200px;vertical-align: text-top;font-weight:bold;">
-      Course Date
-    </td>
-    <td style="width: 50px;vertical-align: text-top;font-weight:bold;">
-      :
-    </td>
-    <td style="width: 1000px;vertical-align: text-top;">
-      <?php if ($event['Course']['duration'] == 1 ) { ?>
-        <?php echo $this->Time->format($event['Event']['start_date'], '%d %B %Y'); ?>
-      <?php } else { ?>
-        <?php echo $this->Time->format($event['Event']['start_date'], '%d').' - '.$this->Time->format($event['Event']['end_date'], '%d %B %Y'); ?>
-      <?php } ?>
     </td>
   </tr>
   <tr style="height: 25px;">
@@ -145,7 +123,33 @@
   </tr>
   <tr style="height: 25px;">
     <td style=" width: 200px;vertical-align: text-top;font-weight:bold;">
-      Trainer(s)
+      Venue
+    </td>
+    <td style="width: 50px;vertical-align: text-top;font-weight:bold;">
+      :
+    </td>
+    <td style="width: 1000px;vertical-align: text-top;">
+      <?php echo $event['Venue']['name'].', '.$event['Venue']['location']; ?>
+    </td>
+  </tr>
+  <!-- <tr style="height: 25px;">
+    <td style=" width: 200px;vertical-align: text-top;font-weight:bold;">
+      Course Date
+    </td>
+    <td style="width: 50px;vertical-align: text-top;font-weight:bold;">
+      :
+    </td>
+    <td style="width: 1000px;vertical-align: text-top;">
+      <?php if ($event['Course']['duration'] == 1 ) { ?>
+        <?php echo $this->Time->format($event['Event']['start_date'], '%d %B %Y'); ?>
+      <?php } else { ?>
+        <?php echo $this->Time->format($event['Event']['start_date'], '%d').' - '.$this->Time->format($event['Event']['end_date'], '%d %B %Y'); ?>
+      <?php } ?>
+    </td>
+  </tr> -->
+  <tr style="height: 25px;">
+    <td style=" width: 200px;vertical-align: text-top;font-weight:bold;">
+      Trainer
     </td>
     <td style="width: 50px;vertical-align: text-top;font-weight:bold;">
       :
@@ -158,9 +162,9 @@
                 array('controller' => 'trainers', 
                   'action' => 'object', $eventTrainer['trainer_id']));
               echo (!empty($trainers['Staff'])?$trainers['Staff']['name']:'');
-              if ($eventTrainer['is_assist'] != 1) { 
-                echo ' <span class="badge bg-danger">assist</span>';
-              } 
+              // if ($eventTrainer['is_assist'] != 1) { 
+              //   echo ' <span class="badge bg-danger">assist</span>';
+              // } 
           ?>
           <br/>
         <?php endforeach; ?>
@@ -171,60 +175,128 @@
   </tr>
 </table>
 <br/>
-<table style="border:0px; border-style: solid; border-color: #989898;text-align:left;" cellpadding="0" cellspacing="0">
+<table style="border:0px; border-style: solid; border-color: #989898;text-align:left; width:100%;" cellpadding="0" cellspacing="0">
   <thead>
     <tr>
-      <th style="background-color: #BDBDBD; height:25px;width:5%;border:1px; border-style: solid; border-color: #989898;text-align:center;"><?php echo '#'; ?></th>
-      <th style="background-color: #BDBDBD; height:25px;width:15%;border:1px; border-style: solid; border-color: #989898;text-align:center;"><?php echo 'ID No.'; ?></th>
-      <th style="background-color: #BDBDBD; height:25px;width:400;border:1px; border-style: solid; border-color: #989898;">&nbsp;<?php echo 'Name'; ?></th>
-      <th style="background-color: #BDBDBD; height:25px;width:20%;border:1px; border-style: solid; border-color: #989898;text-align:center;"><?php echo 'IC No.'; ?></th>
-      <th style="background-color: #BDBDBD; height:25px;width:10%;border:1px; border-style: solid; border-color: #989898;text-align:center;"><?php echo 'Dept'; ?></th>
-      <th style="background-color: #BDBDBD; height:25px;width:500;border:1px; border-style: solid; border-color: #989898;text-align:center;" width="1500px"><?php echo 'Sign'; ?></th>
+      <th style="background-color: #BDBDBD; height:25px;width:5px;border:1px; border-style: solid; border-color: #989898;text-align:center;">NO</th>
+      <th style="background-color: #BDBDBD; height:25px;width:200px;border:1px; border-style: solid; border-color: #989898;text-align:center;">EMPLOYEE ID</th>
+      <th style="background-color: #BDBDBD; height:25px;width:500px;border:1px; border-style: solid; border-color: #989898;">&nbsp;NAME</th>
+      <th style="background-color: #BDBDBD; height:25px;width:200px;border:1px; border-style: solid; border-color: #989898;text-align:center;">IC NUMBER</th>
+      <th style="background-color: #BDBDBD; height:25px;width:300px;border:1px; border-style: solid; border-color: #989898;text-align:center;">DIVISION</th>
+      <th style="background-color: #BDBDBD; height:25px;width:300px;border:1px; border-style: solid; border-color: #989898;text-align:center;">DEPARTMENT</th>
+      <th style="background-color: #BDBDBD; height:25px;width:200px;border:1px; border-style: solid; border-color: #989898;text-align:center;">COMPANY</th>
+      <th style="background-color: #BDBDBD; height:25px;width:200px;border:1px; border-style: solid; border-color: #989898;text-align:center;">CONTACT NO</th>
+      <th style="background-color: #BDBDBD; height:25px;width:200px;border:1px; border-style: solid; border-color: #989898;text-align:center;">ATTENDANCE<br/>(Please Initial)</th>
     </tr>
   </thead>
   <tbody>
     <?php if(!empty($event['EventAttendance'])) { ?>
     <?php foreach ($event['EventAttendance'] as $eventAttendance): ?>
     <?php if (isset($eventAttendance['staff_id'])) { ?>
+      <?php 
+        $participant = $this->requestAction(
+          array('plugin' => 'rail_competency',  'controller' => 'staffs', 
+            'action' => 'object', $eventAttendance['staff_id']));
+          
+        if(!empty($participant))
+        {
+      ?>
       <tr style="height:25px;">
-        <?php 
-          $participant = $this->requestAction(
-            array('plugin' => 'rail_competency',  'controller' => 'staffs', 
-              'action' => 'object', $eventAttendance['staff_id']));
-           
-        ?>
-        <td style="width:5px;border:1px; border-style: solid; border-color: #989898;text-align:center;">
-          &nbsp;<?php
+        
+        <td style="border:1px; border-style: solid; border-color: #989898;text-align:center;">
+          <?php
             echo $count;
           ?>
         </td>
-        <td style="width:15%;border:1px; border-style: solid; border-color: #989898;text-align:center;">
-          &nbsp;<?php
-            echo $participant['Staff']['staff_no'];
+        <td style="border:1px; border-style: solid; border-color: #989898;text-align:center;">
+          <?php
+            if(!empty($participant['Staff']['staff_no']))
+            {
+              $staff_no = $participant['Staff']['staff_no'];
+            }
+            else
+            {
+              $staff_no = '';
+            }
+            echo $staff_no;
           ?>
         </td>
-        <td style="width:40%;border:1px; border-style: solid; border-color: #989898; ">
-          <span style="padding-left:5px; padding-right:5px; ">
+        <td style="border:1px; border-style: solid; border-color: #989898; ">
+          <!-- <span style="padding-left:5px; padding-right:5px; "> -->
             <?php
-              echo ucwords(strtolower($participant['Staff']['name']));
+              if(!empty($participant['Staff']['name']))
+              {
+                $staff_name = ucwords(strtolower($participant['Staff']['name']));
+              }
+              else
+              {
+                $staff_name = '';
+              }
+
+              echo $staff_name;
             ?>
-          </span>
+          <!-- </span> -->
         </td>
-        <td style="width:25%; border:1px; border-style: solid; border-color: #989898;text-align:center;">
-          &nbsp;<?php
-            echo $participant['Staff']['NRIC'];
+        <td style="border:1px; border-style: solid; border-color: #989898;text-align:center;">
+          <?php
+            if(!empty($participant['Staff']['NRIC']))
+            {
+              $staff_ic = $participant['Staff']['NRIC'];
+            }
+            else
+            {
+              $staff_ic = '';
+            }
+            echo $staff_ic;
           ?>
         </td>
-        <td style="width:10%;border:1px; border-style: solid; border-color: #989898;text-align:center;">
-          &nbsp;<?php
-            echo $participant['Staff']['org_code'];
+        <td style="border:1px; border-style: solid; border-color: #989898;text-align:center;">
+          <?php
+            if(!empty($participant['Staff']['division']))
+            {
+              $staff_div = $participant['Staff']['division'];
+            }
+            else
+            {
+              $staff_div = '';
+            }
+            echo $staff_div;
           ?>
         </td>
-        <td style="border:1px; border-style: solid; border-color: #989898;color:#ffffff;">
-          asasdasda
+        <td style="border:1px; border-style: solid; border-color: #989898;text-align:center;">
+          <?php
+            if(!empty($participant['Staff']['department']))
+            {
+              $staff_dept = $participant['Staff']['department'];
+            }
+            else
+            {
+              $staff_dept = '';
+            }
+            echo $staff_dept;
+          ?>
         </td>
-    </tr>
-    
+        <td style="border:1px; border-style: solid; border-color: #989898;text-align:center;">
+          <?php
+            if(!empty($participant['Staff']['parent_code']))
+            {
+              $staff_parent_code = $participant['Staff']['parent_code'];
+            }
+            else
+            {
+              $staff_parent_code = '';
+            }
+            echo $staff_parent_code;
+          ?>
+        </td>
+        <td style="border:1px; border-style: solid; border-color: #989898;">
+          &nbsp;
+        </td>
+        <td style="border:1px; border-style: solid; border-color: #989898;">
+          &nbsp;
+        </td>
+      </tr>
+      <?php } ?>
   <?php }else{ ?>
   <tr>
     <td colspan="4" style="text-align:center;">No staff profile records found</td>

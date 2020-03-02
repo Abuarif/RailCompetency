@@ -1,3 +1,19 @@
+<style type="text/css">
+	@media print 
+	{
+		#footer 
+		{
+			position: fixed;
+			text-align: center;
+			bottom: 0;
+			width: 100%;
+			background: #fff;
+			margin: 0 auto 0 auto;
+			overflow: visible !important;
+		}
+	}
+</style>
+
 <?php
 
 	// Change Memo title according to course code
@@ -278,21 +294,8 @@
         </td>
     </tr>
 </table> -->
-<table style="none;text-align:left;width:100%;position:fixed;bottom:0px;" cellpadding="0" cellspacing="0">
-    <tr>
-		<td style="text-align:center;font-weight:bold;">This is a computer-generated document. No signature is required.</td>
-	</tr>
-	<tr>
-        <td style="text-align:center;">
-            <?php 
-				echo $this->Html->image('http://'.$_SERVER['SERVER_NAME'].Router::url('/')."theme/LamanPuteri/images/logo_collections_2.png", array('height'=> '80px', 'width'=>'514px'));
-			?>
-        </td>
-    </tr>
-</table>
 
 <div style="page-break-before:always;">
-
 	<h1> Appendix 1 </h1>
 	<br>
 	<table style="none;text-align:left;width:100%;padding-top:20px;" cellpadding="0" cellspacing="0">
@@ -327,8 +330,8 @@
 			</td>
 			<td style="height:25px;width:400px;padding-left:30px;font-weight:bold;">
 				<?php 
-							$datediff = floor((strtotime($this->Time->format($event['Event']['start_date'], '%Y-%m-%d')) -  strtotime($this->Time->format($event['Event']['end_date'], '%Y-%m-%d')) )/(60*60*24));
-						?>
+					$datediff = floor((strtotime($this->Time->format($event['Event']['start_date'], '%Y-%m-%d')) -  strtotime($this->Time->format($event['Event']['end_date'], '%Y-%m-%d')) )/(60*60*24));
+				?>
 				<?php if ($datediff == 0 ) { ?>
 				<?php echo $this->Time->format($event['Event']['start_date'], '%d %B %Y'); ?>
 				<?php } else { ?>
@@ -414,35 +417,85 @@
 	<br />
 	<br />
 	<h2> List of Attendance </h2>
-	<table>
+	<table style="width:100%;border:1px solid #a4a4a4;">
 		<thead>
 			<tr>
-				<th style="height:25px;width:25px;text-align:right;solid; border-color: #000000; "> #</th>
-				<th style="height:25px;width:250px;text-align:left;"> Staff Name </th>
-				<th style="height:25px;width:400px;text-align:left;"> Department </th>
+				<th style="border:1px solid #a4a4a4;height:30px;width:30px;text-align:center;solid;">No</th>
+				<th style="border:1px solid #a4a4a4;height:30px;width:400px;text-align:left;padding-left:5px;">Staff Name </th>
+				<th style="border:1px solid #a4a4a4;height:25px;width:200px;text-align:left;padding-left:5px;">Department </th>
 			</tr>
 		</thead>
-		</tbody>
-		<?php $count = 1 ; ?>
-		<?php foreach ($attendees as $attendance) { ?>
 		<?php 
+			$count = 1; 
+
+			foreach (array_slice($attendees, 0, 20) as $attendance) 
+			{ 
 				$participant = $this->requestAction(
 						array('plugin' => 'rail_competency',  'controller' => 'staffs', 
 							'action' => 'object', $attendance['EventAttendance']['staff_id']));
-			?>
+
+				if(!empty($participant['Staff']['name']))
+				{
+		?>
 		<tr>
-			<td style="height:25px;width:25px;text-align:left;solid; border-color: #000000; ">
-				<?php echo $count; ?>.
+			<td style="border:1px solid #a4a4a4;height:30px;width:30px;text-align:center;">
+				<?php echo $count; ?>
 			</td>
-			<td style="height:25px;width:250px;text-align:left;">
-				<?php echo ucwords(strtolower($participant['Staff']['name'])); ?>
+			<td style="border:1px solid #a4a4a4;height:30px;width:400px;text-align:left;padding-left:5px;">
+				<?php 
+					echo ucwords(strtolower($participant['Staff']['name'])); 
+				?>
 			</td>
-			<td style="height:25px;width:400px;text-align:left;">
-				( <?php echo $participant['Staff']['parent_code'].'-'.$participant['Staff']['org_code']; ?> )
+			<td style="border:1px solid #a4a4a4;height:30px;width:200px;text-align:left;padding-left:5px;">
+				(<?php echo $participant['Staff']['parent_code'].'-'.$participant['Staff']['org_code']; ?>)
 			</td>
 		</tr>
-		<?php $count++; } ?>
-		<tbody>
+		<?php $count++; } } ?>
 
 	</table>
+
+	<div style="page-break-before:always;">
+		<table style="width:100%;border:1px solid #a4a4a4;">
+			<thead>
+				<tr>
+					<th style="border:1px solid #a4a4a4;height:30px;width:30px;text-align:center;solid;">No</th>
+					<th style="border:1px solid #a4a4a4;height:30px;width:400px;text-align:left;padding-left:5px;">Staff Name </th>
+					<th style="border:1px solid #a4a4a4;height:25px;width:200px;text-align:left;padding-left:5px;">Department </th>
+				</tr>
+			</thead>
+			<?php 
+				$i = count($attendees); 
+
+				foreach (array_slice($attendees, 20, $i) as $attendance) 
+				{ 
+					$participant = $this->requestAction(
+							array('plugin' => 'rail_competency',  'controller' => 'staffs', 
+								'action' => 'object', $attendance['EventAttendance']['staff_id']));
+
+					if(!empty($participant['Staff']['name']))
+					{
+			?>
+			<tr>
+				<td style="border:1px solid #a4a4a4;height:30px;width:30px;text-align:center;">
+					<?php echo $count; ?>
+				</td>
+				<td style="border:1px solid #a4a4a4;height:30px;width:400px;text-align:left;padding-left:5px;">
+					<?php 
+						echo ucwords(strtolower($participant['Staff']['name'])); 
+					?>
+				</td>
+				<td style="border:1px solid #a4a4a4;height:30px;width:200px;text-align:left;padding-left:5px;">
+					(<?php echo $participant['Staff']['parent_code'].'-'.$participant['Staff']['org_code']; ?>)
+				</td>
+			</tr>
+			<?php $count++; } } ?>
+		</table>
+	</div>
+</div>
+
+<div id="footer">
+	<?php 
+		echo "<h6><strong>This is a computer-generated document. No signature is required.</strong></h6>";
+		echo $this->Html->image('http://'.$_SERVER['SERVER_NAME'].Router::url('/')."theme/LamanPuteri/images/logo_collections_2.png", array('height'=> '80px', 'width'=>'514px'));
+	?>
 </div>

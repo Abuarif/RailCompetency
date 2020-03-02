@@ -44,8 +44,8 @@ class EventAttendancesController extends RailCompetencyAppController {
                 'Event',
                 );
 		$conditions2 = array();
-		$start = '';
-		$end = '';
+		$start_date = '';
+		$end_date = '';
 		if (!empty($this->request->data['Event']['start_date']) && !empty($this->request->data['Event']['end_date']) ) {
 				$start = 'Event.start_date >=  STR_TO_DATE("'.$this->request->data['Event']['start_date'].'", "%d-%m-%Y")';
 				$end = 'Event.start_date <=  STR_TO_DATE("'.$this->request->data['Event']['end_date'].'", "%d-%m-%Y")';

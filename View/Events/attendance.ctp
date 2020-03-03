@@ -50,7 +50,8 @@
           <?php echo $this->Html->link('<i class="fa fa-users pull-left"></i>&nbsp;&nbsp;Nomination Form', array('controller' => 'event_attendances', 'action' => 'nominate', $event['Event']['id']), array('escape' => false)); ?>
         </li>
         <li>
-          <?php echo $this->Html->link('<i class="fa fa-print pull-left"></i>Print Sheet', array('controller' => 'events', 'action' => 'attendance_2', $event['Event']['id'].'.pdf'), array('confirm' => 'Are you sure you wish to print the attendance sheet?', 'escape' => false, 'target' => '_blank')); ?>
+          <?php //echo $this->Html->link('<i class="fa fa-print pull-left"></i>Print Sheet', array('controller' => 'events', 'action' => 'attendance_2', $event['Event']['id'].'.pdf'), array('confirm' => 'Are you sure you wish to print the attendance sheet?', 'escape' => false, 'target' => '_blank')); ?>
+          <?php echo $this->Html->link('<i class="fa fa-print pull-left"></i>Print Sheet', array('controller' => 'events', 'action' => 'attendance_2', $event['Event']['id']), array('confirm' => 'Are you sure you wish to print the attendance sheet?', 'escape' => false, 'target' => '_blank')); ?>
         </li>
         <li>
           <?php echo $this->Form->postLink('<i class="fa fa-cloud-download pull-left"></i>Download TCN', array('controller' => 'events', 'action' => 'tcn', $event['Event']['id'].'.pdf'), array('target' => '_blank', 'escape' => false, 'confirm' => 'Are you sure you wish to download the TCN?')); ?>

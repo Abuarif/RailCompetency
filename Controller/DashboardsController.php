@@ -27,6 +27,8 @@ class DashboardsController extends RailCompetencyAppController {
 	public function index() {
 		$this->layout = 'dashboard';
 
+		$this->loadModel('Event');
+
 		// Route to landing page if not logged in
 	    if (empty($this->Session->read('Auth.User'))) {
 	      $this->redirect($this->webroot.'../../rail');
@@ -192,12 +194,39 @@ class DashboardsController extends RailCompetencyAppController {
 			'Event.end_date <=  NOW()'
 			);
 		$dueTCNEvents = $myEvent->Event->find('count', $options);
+
+		$event_list = $this->Event->find('all', array(
+				'fields' => array('details', 'start_date', 'end_date', 'event_type', 'status'),
+				'conditions' => array('Event.details !=' => ''),
+				'order' => array('Event.start_date' => 'DESC'),
+				'limit' => '30'
+			)
+		);
+
+		for ($i=0; $i < count($event_list); $i++)
+        {
+            $event_list[$i]['Event']['start_date'] = date("d-m-Y",strtotime($event_list[$i]['Event']['start_date']));
+            $event_list[$i]['Event']['end_date'] = date("d-m-Y",strtotime($event_list[$i]['Event']['end_date']));
+		}
 		
-		$this->set(compact('latestEvents', 'latestPublishedEvents', 'dueTCNEvents', 'monthlyPublishedEvents'));
+		$memo_list = $this->Event->find('all', array(
+				'fields' => array('details', 'start_date', 'end_date', 'event_type', 'status', 'modified'),
+				'conditions' => array('Event.details !=' => '', 'Event.is_memo' => 1),
+				'order' => array('Event.modified' => 'DESC'),
+				'limit' => '3'
+			)
+		);
+
+		for ($i=0; $i < count($memo_list); $i++)
+        {
+            $memo_list[$i]['Event']['start_date'] = date("d-m-Y",strtotime($memo_list[$i]['Event']['start_date']));
+            $memo_list[$i]['Event']['end_date'] = date("d-m-Y",strtotime($memo_list[$i]['Event']['end_date']));
+            $memo_list[$i]['Event']['modified'] = date("d-m-Y",strtotime($memo_list[$i]['Event']['modified']));
+		}
+		
+		$this->set(compact('planned_participants', 'myMemoEvent', 'myTotalEvent', 'latestEvents', 'latestPublishedEvents', 'dueTCNEvents', 'monthlyPublishedEvents', 'event_list', 'memo_list'));
 
 		// $end = 'Event.start_date <=  STR_TO_DATE("'.$this->request->data['Event']['end_date'].'", "%d-%m-%Y")';
-
-
 	}
 
 	public function get_stat_training_days($year = null, $department = null) {
